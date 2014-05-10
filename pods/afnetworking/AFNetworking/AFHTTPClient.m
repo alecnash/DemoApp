@@ -476,7 +476,6 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     NSString *urlString = [urlFirst absoluteString];
     urlString = [urlString substringToIndex:[urlString length] - 1];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"urlAfnetworkString: %@", url);
 
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:method];
