@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CollectionController : UICollectionViewController <NSFetchedResultsControllerDelegate>
+@interface CollectionController : UICollectionViewController
 
 @end
