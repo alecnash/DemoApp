@@ -79,8 +79,6 @@ int const cacheMinutes = 15;
         NSDate *now = [NSDate new];
         NSDate *cached = cache.cacheDate;
         NSTimeInterval distanceBetweenDates = [now timeIntervalSinceDate:cached];
-        
-        NSLog(@"timeinterval %f", distanceBetweenDates/60);
         if (distanceBetweenDates/60 < cacheMinutes) {
             NSDictionary *dict = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:cache.cacheJson];
 
