@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Board" representedClassName="Board" syncable="YES">
+        <attribute name="coverImage" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="creator" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Creator" inverseName="board" inverseEntity="Creator" syncable="YES"/>
+        <relationship name="items" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Items" inverseName="board" inverseEntity="Items" syncable="YES"/>
+    </entity>
+    <entity name="Cache" representedClassName="Cache" syncable="YES">
+        <attribute name="cacheDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="cacheJson" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="cacheUrl" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Creator" representedClassName="Creator" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="board" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Board" inverseName="creator" inverseEntity="Board" syncable="YES"/>
+    </entity>
+    <entity name="Images" representedClassName="Image" syncable="YES">
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="images" inverseEntity="Product" syncable="YES"/>
+    </entity>
+    <entity name="Items" representedClassName="Items" syncable="YES">
+        <relationship name="board" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Board" inverseName="items" inverseEntity="Board" syncable="YES"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="items" inverseEntity="Product" syncable="YES"/>
+    </entity>
+    <entity name="Product" representedClassName="Product" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shippingCost" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Images" inverseName="product" inverseEntity="Images" syncable="YES"/>
+        <relationship name="items" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Items" inverseName="product" inverseEntity="Items" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Board" positionX="-128" positionY="-108" width="128" height="88"/>
+        <element name="Creator" positionX="-144" positionY="63" width="128" height="133"/>
+        <element name="Images" positionX="277" positionY="99" width="128" height="73"/>
+        <element name="Items" positionX="108" positionY="-306" width="128" height="73"/>
+        <element name="Product" positionX="279" positionY="-133" width="128" height="118"/>
+        <element name="Cache" positionX="-128" positionY="-297" width="128" height="88"/>
+    </elements>
+</model>
