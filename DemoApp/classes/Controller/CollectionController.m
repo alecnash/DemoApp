@@ -49,6 +49,7 @@ int const cacheMinutes = 15;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setTitle:@"Stylight"];
     managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     cacheDictionary = [[NSMutableDictionary alloc]init];
     lastPageLoaded = 0;
