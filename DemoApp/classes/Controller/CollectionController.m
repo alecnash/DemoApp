@@ -205,7 +205,6 @@ int const cacheMinutes = 15;
 #pragma mark - UICollectionView
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    NSLog(@"itemsArray count %d", [itemArray count]);
     return [itemArray count];
 }
 
