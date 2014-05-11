@@ -63,6 +63,7 @@ int const cacheMinutes = 15;
     [super didReceiveMemoryWarning];
 }
 
+
 - (void)loadFromJsonForPage:(int)page
 {
     NSDictionary *parameters = @{@"gender": @"women",
@@ -85,13 +86,16 @@ int const cacheMinutes = 15;
             lastPageLoaded ++;
             NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
             [self.collectionView reloadSections:indexSet];
+            NSLog(@"loading from cache");
         }
         else {
             [self performNetworkRequestFromBase:base];
+            NSLog(@"loading from network");
         }
     }
     else {
         [self performNetworkRequestFromBase:base];
+        NSLog(@"loading from network");
     }
 }
 

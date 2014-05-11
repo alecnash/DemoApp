@@ -61,6 +61,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [self saveContext];
 }
 
