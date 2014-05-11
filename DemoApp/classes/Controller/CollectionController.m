@@ -87,8 +87,9 @@ int const cacheMinutes = 15;
             NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
             [self.collectionView reloadSections:indexSet];
         }
-        else
+        else {
             [self performNetworkRequestFromBase:base];
+        }
     }
     else {
         [self performNetworkRequestFromBase:base];
@@ -116,13 +117,23 @@ int const cacheMinutes = 15;
 {
     NSData *cacheJson = [NSKeyedArchiver archivedDataWithRootObject:dict];
     NSDate *cacheDate = [NSDate new];
-    NSDictionary *cacheString = @{@"cacheUrl": key,
-                                  @"cacheJson":cacheJson,
-                                  @"cacheDate": cacheDate};
-    Cache *cache = (Cache *)[self objectFromDictionary:cacheString forName:@"cache"];
-    NSError *error = nil;
-    [managedObjectContext save:&error];
-    [managedObjectContext refreshObject:cache mergeChanges:YES];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Cache"
+                                              inManagedObjectContext:managedObjectContext];
+    [request setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"cacheUrl ==[c] %@", key];
+    [request setPredicate:predicate];
+    
+    NSArray *array=[managedObjectContext executeFetchRequest:request error:nil];
+    
+    if ([array count] > 0){
+        Cache *cache = [array objectAtIndex:0];
+        cache.cacheUrl = key;
+        cache.cacheDate = cacheDate;
+        cache.cacheJson = cacheJson;
+        [managedObjectContext save:nil];
+    }
 }
 
 //Getting the cached object
@@ -140,7 +151,7 @@ int const cacheMinutes = 15;
     if (array == nil)
     {
     }
-    Cache *cache = [array firstObject];
+    Cache *cache = [array lastObject];
     return cache;
 }
 
