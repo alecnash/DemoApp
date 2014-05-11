@@ -63,7 +63,6 @@ int const cacheMinutes = 15;
     [super didReceiveMemoryWarning];
 }
 
-
 - (void)loadFromJsonForPage:(int)page
 {
     NSDictionary *parameters = @{@"gender": @"women",
@@ -117,6 +116,10 @@ int const cacheMinutes = 15;
 {
     NSData *cacheJson = [NSKeyedArchiver archivedDataWithRootObject:dict];
     NSDate *cacheDate = [NSDate new];
+    NSDictionary *cacheDict = @{@"cacheUrl": key,
+                                  @"cacheJson":cacheJson,
+                                  @"cacheDate": cacheDate};
+    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Cache"
                                               inManagedObjectContext:managedObjectContext];
@@ -126,7 +129,10 @@ int const cacheMinutes = 15;
     [request setPredicate:predicate];
     
     NSArray *array=[managedObjectContext executeFetchRequest:request error:nil];
-    
+    if ([array count] == 0) {
+        [self objectFromDictionary:cacheDict forName:@"cache"];
+        [managedObjectContext save:nil];
+    }
     if ([array count] > 0){
         Cache *cache = [array objectAtIndex:0];
         cache.cacheUrl = key;
